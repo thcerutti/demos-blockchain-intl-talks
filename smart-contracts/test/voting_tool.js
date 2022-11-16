@@ -9,14 +9,15 @@ contract("VotingTool", async (accounts) => {
   let candidate1 = accounts[1];
   let candidate2 = accounts[2];
   let candidate3 = accounts[3];
-  let contract
+  let contract;
+
   beforeEach(async () => {
     contract = await VotingTool.deployed();
   })
 
   describe('on startup', () => {
-    it('should not have candidates', async () => {
-      let actual = await contract.getAllCandidates.call()
+    it('should have no candidates', async () => {
+      let actual = await contract.getAllCandidates()
       assert.equal(0, actual.length)
     })
   })
@@ -25,7 +26,6 @@ contract("VotingTool", async (accounts) => {
     it('should not accept contract owner as candidate', async () => {
       let contractOwner = accounts[0];
       try {
-
         await contract.registerCandidate(contractOwner)
       } catch (error) {
         assert.equal('contract owner cannot be candidate', error.data.reason)
@@ -33,7 +33,8 @@ contract("VotingTool", async (accounts) => {
       }
       assert.fail('Expected throw not received');
     })
-    it('should not accept candidate already regustered', async () => {
+
+    it('should not accept candidate already registered', async () => {
       await contract.registerCandidate(candidate3)
       try {
         await contract.registerCandidate(candidate3)
@@ -58,6 +59,7 @@ contract("VotingTool", async (accounts) => {
         let actual = await contract.getVotes(candidate1);
         assert.equal(1, actual)
       })
+
       it('should revert when double vote on the same candidate', async () => {
         await contract.registerCandidate(candidate2)
         await contract.vote(candidate2, { from: accounts[3] })
@@ -69,6 +71,7 @@ contract("VotingTool", async (accounts) => {
         }
         assert.fail('Expected throw not received');
       })
+      
       it('should revert when voting in an inexistent candidate', async () => {
         let invalidCandidate = accounts[4]
         try {
