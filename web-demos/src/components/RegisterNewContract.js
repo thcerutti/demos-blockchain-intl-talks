@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-var sha256 = require("js-sha256");
+const sha256 = require("js-sha256");
 
 const RegisterNewContract = () => {
   const sampleContractValue = `Comprador: John Smith (CPF: 000.000.000-00); Vendedor: Lucy Brown (CPF: 111.111.111-11); Imóvel: apartamento na Rua Something, número 42, Bairro Centro, área construída 350m²; Valor de negociação: R$ 750.000,00; Data atual: ${new Date().toISOString()}`;
@@ -15,12 +15,17 @@ const RegisterNewContract = () => {
     setGeneratedSha256Hash(sha256(contractOriginalContent));
   }, [contractOriginalContent]);
 
-  const onClickRegisterContract = () => {
+  const onClickRegisterContract = async () => {
+    let account = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    console.log(account);
+
     const transactionData = {
       buyer: buyerAddress,
       seller: sellerAddress,
-      contractHash: generatedSha256Hash
-    }
+      contractHash: generatedSha256Hash,
+    };
     console.log(transactionData);
   };
 
