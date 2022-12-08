@@ -32,6 +32,27 @@ const RegisterNewContract = () => {
     });
   };
 
+  const onSendTransaction = () => {
+    const Web3 = require("web3");
+    const web3 = new Web3("http://localhost:7545");
+
+    const contractOwner = "0xD98D99D5372431cBa43E6aA27925861B2131C5BB";
+    const contractAddress = "0xF2641343E730085f778D070F555b85289f7389ce";
+    const myContract = new web3.eth.Contract(contractAbi, contractAddress);
+
+    const from = "0x643f4373B13006Ddc814bf591d80A50Ac1953E80";
+    const to = "0x6f99630EfA1DF25F14af9d4149df4D8a06240673";
+    const hash = new Date().toISOString();
+    myContract.methods
+      .registerNegotiation(from, to, hash)
+      .send({ from: contractOwner, gas: 100000 }, (err, tx) => {
+        if (err) {
+          console.log("error", err);
+        }
+        console.log("success", tx);
+      });
+  };
+
   const onClickRegisterContract = async () => {
     let account = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -49,7 +70,9 @@ const RegisterNewContract = () => {
   return (
     <div>
       <h1>New Contract Registration</h1>
-      <button onClick={onClickTest}>test me!</button>
+      <button onClick={onClickTest}>test me! - read SC</button>
+      <button onClick={onSendTransaction}>test me! - write SC</button>
+
       <div>
         <h2>Contract original content</h2>
         <textarea
