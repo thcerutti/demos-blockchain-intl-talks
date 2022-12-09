@@ -1,0 +1,7 @@
+{
+  "contractOwner": "0xD98D99D5372431cBa43E6aA27925861B2131C5BB",
+  "contractAddress": "0xF2641343E730085f778D070F555b85289f7389ce",
+  "defaultAccountFrom": "0x643f4373B13006Ddc814bf591d80A50Ac1953E80",
+  "defaultAccountTo": "0x6f99630EfA1DF25F14af9d4149df4D8a06240673",
+  "rpcUrl": "http://localhost:7545"
+}
