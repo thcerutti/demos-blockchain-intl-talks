@@ -1,16 +1,26 @@
 import React, { useState } from "react";
+import { getContractDetailsAsync } from "../services/smartContractService";
 
 const GetNegotiationDetails = () => {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [registrationDate, setRegistrationDate] = useState(null);
+  const [contractHash, setContractHash] = useState("");
+
+  const getSmartContractDetails = async (contractHash) => {
+    let result = await getContractDetailsAsync(contractHash);
+    console.log(result);
+  };
 
   return (
     <div>
-      <h1>hello world</h1>
-      <h3>Insert contract hash</h3>
-      <input type="text" id="contractHash" />
-      <button>Get Details</button>
+      <h1>Get contract details</h1>
+      <input
+        type="text"
+        onChange={(event) => setContractHash(event.target.value)}
+        placeholder="contract hash"
+      />
+      <button onClick={() => getSmartContractDetails(contractHash)}>Get Details</button>
       <div>
         <ul>
           <li>

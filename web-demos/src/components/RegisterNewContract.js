@@ -9,8 +9,10 @@ const RegisterNewContract = () => {
   const sampleContractValue = `Comprador: John Smith (CPF: 000.000.000-00); Vendedor: Lucy Brown (CPF: 111.111.111-11); Imóvel: apartamento na Rua Something, número 42, Bairro Centro, área construída 350m²; Valor de negociação: R$ 750.000,00; Data atual: ${new Date().toISOString()}`;
 
   const [contractHash, setContractHash] = useState("");
-  const [buyerAddress, setBuyerAddress] = useState("");
-  const [sellerAddress, setSellerAddress] = useState("");
+  const [buyerAddress, setBuyerAddress] = useState(configs.defaultAccountTo);
+  const [sellerAddress, setSellerAddress] = useState(
+    configs.defaultAccountFrom
+  );
   const [contractOriginalContent, setContractOriginalContent] =
     useState(sampleContractValue);
 
@@ -18,25 +20,9 @@ const RegisterNewContract = () => {
     setContractHash(sha256(contractOriginalContent));
   }, [contractOriginalContent]);
 
-  const onClickTest = async () => {
-    let result = await getContractDetailsAsync();
+  const getSmartContractDetails = async (contractHash) => {
+    let result = await getContractDetailsAsync(contractHash);
     console.log(result);
-
-    // const Web3 = require("web3");
-    // const web3 = new Web3(configs.rpcUrl);
-
-    // const myContract = new web3.eth.Contract(
-    //   contractAbi,
-    //   configs.contractAddress
-    // );
-    // myContract.methods
-    //   .getContractDetails(configs.contractOwner)
-    //   .call((err, res) => {
-    //     if (err) {
-    //       console.log("error", err);
-    //     }
-    //     console.log("success", res);
-    //   });
   };
 
   const onSendTransaction = () => {
@@ -73,7 +59,9 @@ const RegisterNewContract = () => {
   return (
     <div>
       <h1>New Contract Registration</h1>
-      <button onClick={onClickTest}>test me! - read SC</button>
+      <button onClick={() => getSmartContractDetails(contractHash)}>
+        test me! - read SC
+      </button>
       <button onClick={onSendTransaction}>test me! - write SC</button>
 
       <div>
@@ -102,7 +90,6 @@ const RegisterNewContract = () => {
           <label htmlFor="buyer">Buyer Address</label>
           <input
             type="text"
-            id="buyer"
             value={buyerAddress}
             onChange={(event) => setBuyerAddress(event.target.value)}
           />
