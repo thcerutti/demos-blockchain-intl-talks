@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { getContractDetailsAsync } from "../services/smartContractService";
 const sha256 = require("js-sha256");
 const contractAbi =
   require("../contract-interfaces/SalesRegistration.json").abi;
@@ -20,11 +19,6 @@ const RegisterNewContract = () => {
     setContractHash(sha256(contractOriginalContent));
   }, [contractOriginalContent]);
 
-  const getSmartContractDetails = async (contractHash) => {
-    let result = await getContractDetailsAsync(contractHash);
-    console.log(result);
-  };
-
   const onSendTransaction = () => {
     const Web3 = require("web3");
     const web3 = new Web3(configs.rpcUrl);
@@ -34,36 +28,23 @@ const RegisterNewContract = () => {
       configs.contractAddress
     );
 
-    const hash = new Date().toISOString();
     myContract.methods
       .registerNegotiation(
         configs.defaultAccountFrom,
         configs.defaultAccountTo,
-        hash
+        contractHash
       )
       .send({ from: configs.contractOwner, gas: 100000 }, (err, tx) => {
         if (err) {
           console.log("error", err);
         }
-        console.log("success", tx);
+        console.log("Transaction hash", tx);
       });
-  };
-
-  const onClickRegisterContract = async () => {
-    let account = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    console.log(account);
   };
 
   return (
     <div>
       <h1>New Contract Registration</h1>
-      <button onClick={() => getSmartContractDetails(contractHash)}>
-        test me! - read SC
-      </button>
-      <button onClick={onSendTransaction}>test me! - write SC</button>
-
       <div>
         <h2>Contract original content</h2>
         <textarea
@@ -105,7 +86,7 @@ const RegisterNewContract = () => {
           />
         </div>
 
-        <button onClick={onClickRegisterContract}>Register Contract</button>
+        <button onClick={onSendTransaction}>Register Contract</button>
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ const GetNegotiationDetails = () => {
 
   const getSmartContractDetails = async (contractHash) => {
     let result = await getContractDetailsAsync(contractHash);
-    console.log(result);
+    setFrom(result.From)
+    setTo(result.To)
+    setRegistrationDate(new Date(result.Timestamp*1000).toISOString())
   };
 
   return (
