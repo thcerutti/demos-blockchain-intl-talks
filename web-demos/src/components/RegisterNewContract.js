@@ -14,6 +14,7 @@ const RegisterNewContract = () => {
   );
   const [contractOriginalContent, setContractOriginalContent] =
     useState(sampleContractValue);
+  const [lastTransaction, setLastTransaction] = useState("");
 
   useEffect(() => {
     setContractHash(sha256(contractOriginalContent));
@@ -37,8 +38,10 @@ const RegisterNewContract = () => {
       .send({ from: configs.contractOwner, gas: 100000 }, (err, tx) => {
         if (err) {
           console.log("error", err);
+          alert(err)
         }
         console.log("Transaction hash", tx);
+        setLastTransaction(tx);
       });
   };
 
@@ -87,6 +90,10 @@ const RegisterNewContract = () => {
         </div>
 
         <button onClick={onSendTransaction}>Register Contract</button>
+        <div>
+          <label htmlFor="">Last Transaction: </label>
+          <span>{lastTransaction}</span>
+        </div>
       </div>
     </div>
   );
