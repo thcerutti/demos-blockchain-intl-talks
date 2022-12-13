@@ -1,0 +1,10 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+}
+
+input[type="text"] {
+  color: red;
+  width: 80%;
+  font-family: "Courier New", Courier, monospace;
+  font-size: x-large;
+}

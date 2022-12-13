@@ -83,7 +83,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"NegotiationRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"contractHash\",\"type\":\"string\"}],\"name\":\"getContractDetails\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"From\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"To\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"Timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct SalesRegistration.NegotiationData\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"contractHash\",\"type\":\"string\"}],\"name\":\"registerNegotiation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/SalesRegistration.sol\":\"SalesRegistration\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/SalesRegistration.sol\":{\"keccak256\":\"0x2673bc710c6016aef59289bfb4740f549f31a24bb61882311466c68e2f72336c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5b2cee57fdff50282d1db75110c94f848d4655f17239da1282b66966250e9885\",\"dweb:/ipfs/QmZfHuPACgvCV5LdA3PvyX59vCn7VLxRdCFdRNhCrpd89a\"]}},\"version\":1}",
@@ -5879,9 +5880,17 @@
     "name": "solc",
     "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xB01C188625D084632Fd21165404F1ea549D53AC3",
+      "transactionHash": "0x0f58f49c3d18e8371ea1db73881b3178be60a0249df01ab674ff5faf4995da86"
+    }
+  },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-04T13:28:33.178Z",
+  "updatedAt": "2022-12-12T00:31:20.807Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
